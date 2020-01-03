@@ -409,3 +409,11 @@ Proof.
   - destruct_vector. reflexivity.
   - destruct_vector. cbn in *. inv H. f_equal. auto.
 Qed.
+
+Lemma vector_to_list_length (X : Type) (n : nat) (xs : Vector.t X n) :
+  length(Vector.to_list xs) = n. 
+Proof.
+  induction xs. 
+  - now cbn. 
+  - change (S (length xs) = S n). now rewrite IHxs. 
+Qed. 
