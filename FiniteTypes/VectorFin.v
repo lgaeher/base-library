@@ -2,6 +2,7 @@ Require Import PslBase.FiniteTypes.FinTypes.
 Require Import PslBase.Vectors.Vectors.
 Require Import PslBase.Vectors.VectorDupfree.
 Require Import BasicDefinitions.
+Require Import PslBase.FiniteTypes.Cardinality.
 
 Definition Fin_initVect (n : nat) : Vector.t (Fin.t n) n :=
   tabulate (fun i : Fin.t n => i).
@@ -37,6 +38,11 @@ Proof.
 Defined.
 
 Hint Extern 4 (finTypeC (EqType (Fin.t _))) => eapply Fin_finTypeC : typeclass_instances.
+
+Lemma Card_Fint n : Cardinality (finType_CS (Fin.t n)) = n.
+Proof.
+  unfold Cardinality. unfold elem. unfold enum. cbn. unfold Fin_initVect. now rewrite vector_to_list_length. 
+Qed.
 
 (** Function that produces a list of all Vectors of length n over A *)
 Fixpoint Vector_pow {X: Type} (A: list X) n {struct n} : list (Vector.t X n) :=
